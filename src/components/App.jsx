@@ -3,13 +3,14 @@ import { Routes, Route, NavLink } from 'react-router-dom';
 import { StyledMainContainer } from 'pages/Home/TrandingMoviesStyles';
 import styled from '@emotion/styled';
 
-const TrandingMovies = lazy(() =>
-  import('pages/Home/TrandingMovies')
-);
+const TrandingMovies = lazy(() => import('pages/Home/TrandingMovies'));
 const Movies = lazy(() => import('pages/Movies/Movies'));
 const MovieDetails = lazy(() => import('./MovieDetails/MovieDetails'));
 const Cast = lazy(() => import('./Cast/Cast'));
 const Reviews = lazy(() => import('./Reviews/Reviews'));
+const NotFound = lazy(() =>import('pages/NotFoundMessage'))
+
+
 
 const StyledNav = styled.nav`
   display: flex;
@@ -61,6 +62,7 @@ export const App = () => {
             <Route path="cast" element={<Cast />} />
             <Route path="reviews" element={<Reviews />} />
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
     </StyledMainContainer>

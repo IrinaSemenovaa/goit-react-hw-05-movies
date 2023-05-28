@@ -1,5 +1,6 @@
 import { useParams, Link, Outlet, useLocation } from 'react-router-dom';
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, Suspense } from 'react';
+import NotFound from 'pages/NotFoundMessage';
 import axios from 'axios';
 import {
   StyledAdditionalBox,
@@ -17,10 +18,10 @@ import {
 export default function MovieDetails() {
   const { movieId } = useParams();
   const [movie, setMovie] = useState(null);
+  const [error, setError] = useState(false);
 
   const location = useLocation();
   const backLinkLocation = useRef(location.state?.from || '/movies');
-
 
   useEffect(() => {
     const fetchMovieDetails = async () => {
@@ -31,10 +32,15 @@ export default function MovieDetails() {
         setMovie(response.data);
       } catch (error) {
         console.error(error);
+        setError(true);
       }
     };
     fetchMovieDetails();
   }, [movieId]);
+
+  if (error) {
+    return <NotFound />;
+  }
 
   if (!movie) {
     return <div>Loading...</div>;
@@ -56,7 +62,7 @@ export default function MovieDetails() {
         <StyledShortstoryInfo>
           <StyledShortstoryMainTitle>{movie.title}</StyledShortstoryMainTitle>
           <StyledShortstoryRating>
-            User score: {parcent}%{' '}
+            User score: {parcent}%
           </StyledShortstoryRating>
           <StyledShortstoryTitle>Overview</StyledShortstoryTitle>
           <StyledShortstoryText>{movie.overview}</StyledShortstoryText>
@@ -74,7 +80,9 @@ export default function MovieDetails() {
           </li>
         </ul>
       </StyledAdditionalBox>
-      <Outlet />
+      <Suspense fallback={<div>Loading...</div>}>
+        <Outlet />
+      </Suspense>
     </StyledShortstory>
   );
 }

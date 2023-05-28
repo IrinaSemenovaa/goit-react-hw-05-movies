@@ -2,7 +2,7 @@ import styled from '@emotion/styled';
 
 export const StyledCastGrid = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(4, 1fr);
   grid-gap: 10px;
 `;
 
@@ -14,8 +14,8 @@ export const StyledCastBox = styled.div`
 `;
 
 export const StyledCastImg = styled.img`
-  width: 100px;
-  height: 150px;
+  width: 146px;
+  height: 192px;
   border-radius: 5px;
   margin-bottom: 10px;
 `;

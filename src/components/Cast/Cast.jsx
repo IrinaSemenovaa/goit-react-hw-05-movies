@@ -9,6 +9,8 @@ import {
   StyledCastText,
 } from './CastStyles';
 
+import defaultImage from '../Cast/images/defphoto.png';
+
 export default function Cast() {
   const { movieId } = useParams();
   const [cast, setCast] = useState([]);
@@ -33,7 +35,11 @@ export default function Cast() {
         {cast.map(actor => (
           <StyledCastBox key={actor.id}>
             <StyledCastImg
-              src={`https://image.tmdb.org/t/p/w500${actor.profile_path}`}
+              src={
+                actor.profile_path
+                  ? `https://image.tmdb.org/t/p/w500${actor.profile_path}`
+                  : defaultImage
+              }
               alt={actor.name}
             />
             <StyledCastName>{actor.name}</StyledCastName>
